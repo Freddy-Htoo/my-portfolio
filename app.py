@@ -1,29 +1,35 @@
 from flask import Flask, render_template
+import requests
 
 app = Flask(__name__)
 
-# Edit this list to add/remove your own projects.
-# Each project shows up as a card on the homepage.
-projects = [
-    {
-        "title": "Project One",
-        "description": "A short description of what this project does and what you used to build it.",
-        "link": "https://github.com/yourusername/project-one"
-    },
-    {
-        "title": "Project Two",
-        "description": "Another project description goes here.",
-        "link": "https://github.com/yourusername/project-two"
-    },
-    {
-        "title": "Project Three",
-        "description": "A third project description goes here.",
-        "link": "https://github.com/yourusername/project-three"
-    },
-]
+# Change this to your actual GitHub username
+GITHUB_USERNAME = "Freddy-Htoo"
 
 @app.route("/")
 def home():
+    projects = []
+    try:
+        response = requests.get(
+            f"https://api.github.com/users/{GITHUB_USERNAME}/repos",
+            params={"sort": "updated", "per_page": 6},
+            timeout=5
+        )
+        response.raise_for_status()
+        repos = response.json()
+
+        # Convert GitHub's fields into the shape our template expects
+        for repo in repos:
+            projects.append({
+                "title": repo["name"],
+                "description": repo["description"] or "No description provided.",
+                "link": repo["html_url"]
+            })
+    except requests.exceptions.RequestException as e:
+        # If the API call fails (rate limit, no internet, bad username, etc.)
+        # fall back to an empty list so the page still loads instead of crashing.
+        print(f"Could not fetch GitHub repos: {e}")
+
     return render_template("index.html", projects=projects)
 
 if __name__ == "__main__":

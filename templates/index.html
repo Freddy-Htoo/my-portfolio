@@ -28,18 +28,21 @@
         </p>
     </section>
 
-    <section id="projects" class="section">
-        <h2>Projects</h2>
-        <div class="project-grid">
-            {% for project in projects %}
-            <div class="project-card">
-                <h3>{{ project.title }}</h3>
-                <p>{{ project.description }}</p>
-                <a href="{{ project.link }}" target="_blank">View project →</a>
-            </div>
-            {% endfor %}
+   <section id="projects" class="section">
+    <h2>Projects</h2>
+    <div class="project-grid">
+        {% for project in projects %}
+        <div class="project-card">
+            <h3>{{ project.title }}</h3>
+            {% if project.language != "N/A" %}
+                <span class="tech-tag">{{ project.language }}</span>
+            {% endif %}
+            <p>{{ project.description }}</p>
+            <a href="{{ project.link }}" target="_blank">View project →</a>
         </div>
-    </section>
+        {% endfor %}
+    </div>
+</section>
 
     <section id="contact" class="section">
         <h2>Contact</h2>

@@ -393,3 +393,59 @@ footer {
 body.dark-mode #matrix-bg {
     opacity: 0.2;
 }
+
+/* Journey timeline */
+.timeline {
+    position: relative;
+    margin-top: 30px;
+    padding-left: 30px;
+}
+
+.timeline::before {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: var(--card-border);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 32px;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -30px;
+    top: 4px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    box-shadow: 0 0 0 4px var(--bg-color), 0 0 10px 2px var(--accent-color);
+}
+
+.timeline-content h3 {
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+    color: var(--text-color);
+}
+
+.timeline-content p {
+    color: var(--footer-text);
+    font-size: 0.95rem;
+}

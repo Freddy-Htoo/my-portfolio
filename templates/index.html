@@ -7,18 +7,35 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <canvas id="matrix-bg"></canvas>
+
+    <div class="cursor-dot" id="cursor-dot"></div>
 
     <header class="hero">
-        <h1>Freddy Htoo</h1>
-        <p>Aspiring developer building things with Python & Flask</p>
-        <nav>
-            <a href="#about">About</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
-        </nav>
+        <div class="particles" id="particles"></div>
+
+        <div class="theme-switch-wrapper">
+            <label class="theme-switch">
+                <input type="checkbox" id="theme-toggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="hero-content">
+            <h1 class="glitch" data-text="Freddy Htoo">Freddy Htoo</h1>
+            <p>Aspiring developer building things with Python & Flask</p>
+            <div class="code-typer">
+                <span id="typer-text"></span><span class="cursor">|</span>
+            </div>
+            <nav>
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
     </header>
 
-    <section id="about" class="section">
+    <section id="about" class="section reveal">
         <h2>About Me</h2>
         <p>
             I'm a former IT helpdesk technician now diving into Python,
@@ -26,31 +43,40 @@
             itself is a project I coded from scratch using Flask, and I'm
             always looking for the next thing to break and fix.
         </p>
+
+        <div class="stats">
+            <div class="stat">
+                <span class="stat-number" data-target="3">0</span>
+                <span class="stat-label">Months Learning to Code</span>
+            </div>
+        </div>
     </section>
 
-   <section id="projects" class="section">
-    <h2>Projects</h2>
-    <div class="project-grid">
-        {% for project in projects %}
-        <div class="project-card">
-            <h3>{{ project.title }}</h3>
-            {% if project.language != "N/A" %}
+    <section id="projects" class="section reveal">
+        <h2>Projects</h2>
+        <div class="project-grid">
+            {% for project in projects %}
+            <div class="project-card tilt-card">
+                <h3>{{ project.title }}</h3>
+                {% if project.language != "N/A" %}
                 <span class="tech-tag">{{ project.language }}</span>
-            {% endif %}
-            <p>{{ project.description }}</p>
-            <a href="{{ project.link }}" target="_blank">View project →</a>
+                {% endif %}
+                <p>{{ project.description }}</p>
+                <a href="{{ project.link }}" target="_blank">View project →</a>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
-</section>
+    </section>
 
-    <section id="contact" class="section">
+    <section id="contact" class="section reveal">
         <h2>Contact</h2>
         <p>
             Email me at
             <a href="mailto:freddyhtoo2026@gmail.com">freddyhtoo2026@gmail.com</a>
             or find me on
             <a href="https://github.com/Freddy-Htoo" target="_blank">GitHub</a>.
+            Download resume
+            <a href="{{ url_for('static', filename='resume.pdf') }}" target="_blank" class="btn">Download</a>
         </p>
     </section>
 
@@ -58,5 +84,13 @@
         <p>&copy; 2026 Freddy Htoo</p>
     </footer>
 
+    <script src="{{ url_for('static', filename='theme.js') }}"></script>
+    <script src="{{ url_for('static', filename='typer.js') }}"></script>
+    <script src="{{ url_for('static', filename='particles.js') }}"></script>
+    <script src="{{ url_for('static', filename='tilt.js') }}"></script>
+    <script src="{{ url_for('static', filename='counter.js') }}"></script>
+    <script src="{{ url_for('static', filename='reveal.js') }}"></script>
+    <script src="{{ url_for('static', filename='cursor.js') }}"></script>
+    <script src="{{ url_for('static', filename='matrix.js') }}"></script>
 </body>
 </html>

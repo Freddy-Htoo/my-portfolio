@@ -1,3 +1,27 @@
+:root {
+    --bg-color: #fafafa;
+    --text-color: #222;
+    --header-bg: #1e1e2f;
+    --header-text: #fff;
+    --header-subtext: #cfcfe0;
+    --accent-color: #6c6cff;
+    --card-bg: #ffffff;
+    --card-border: #e0e0e0;
+    --footer-text: #888;
+}
+
+body.dark-mode {
+    --bg-color: #121212;
+    --text-color: #f0f0f0;
+    --header-bg: #16161f;
+    --header-text: #f0f0f0;
+    --header-subtext: #a9a9c0;
+    --accent-color: #61dafb;
+    --card-bg: #1e1e1e;
+    --card-border: #333333;
+    --footer-text: #999999;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -7,16 +31,18 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     line-height: 1.6;
-    color: #222;
-    background: #fafafa;
+    color: var(--text-color);
+    background: var(--bg-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Hero / header */
 .hero {
-    background: #1e1e2f;
-    color: #fff;
+    background: var(--header-bg);
+    color: var(--header-text);
     padding: 80px 20px 60px;
     text-align: center;
+    transition: background-color 0.3s ease;
 }
 
 .hero h1 {
@@ -25,22 +51,24 @@ body {
 }
 
 .hero p {
-    color: #cfcfe0;
+    color: var(--header-subtext);
     margin-bottom: 25px;
 }
 
 .hero nav a {
-    color: #fff;
+    color: var(--header-text);
     text-decoration: none;
     margin: 0 15px;
     font-weight: 500;
     border-bottom: 2px solid transparent;
     padding-bottom: 4px;
-    transition: border-color 0.2s ease;
+    display: inline-block;
+    transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
 .hero nav a:hover {
-    border-color: #6c6cff;
+    border-color: var(--accent-color);
+    transform: translateY(-4px);
 }
 
 /* Sections */
@@ -53,7 +81,7 @@ body {
 .section h2 {
     font-size: 1.8rem;
     margin-bottom: 20px;
-    border-bottom: 3px solid #6c6cff;
+    border-bottom: 3px solid var(--accent-color);
     display: inline-block;
     padding-bottom: 4px;
 }
@@ -67,11 +95,11 @@ body {
 }
 
 .project-card {
-    background: #fff;
-    border: 1px solid #e0e0e0;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: 8px;
     padding: 20px;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.3s ease;
 }
 
 .project-card:hover {
@@ -81,13 +109,13 @@ body {
 
 .project-card h3 {
     margin-bottom: 8px;
-    color: #1e1e2f;
+    color: var(--text-color);
 }
 
 .project-card a {
     display: inline-block;
     margin-top: 10px;
-    color: #6c6cff;
+    color: var(--accent-color);
     text-decoration: none;
     font-weight: 500;
 }
@@ -100,7 +128,7 @@ body {
 footer {
     text-align: center;
     padding: 30px 20px;
-    color: #888;
+    color: var(--footer-text);
     font-size: 0.9rem;
 }
 
@@ -124,4 +152,244 @@ footer {
     padding: 2px 10px;
     border-radius: 999px;
     margin: 4px 0;
+}
+
+/* Dark mode toggle switch */
+.theme-switch-wrapper {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.theme-switch {
+    display: inline-block;
+    width: 52px;
+    height: 28px;
+    position: relative;
+}
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #cfcfcf;
+    border-radius: 999px;
+    transition: background-color 0.3s ease;
+}
+
+.slider::before {
+    content: "";
+    position: absolute;
+    height: 22px;
+    width: 22px;
+    left: 3px;
+    bottom: 3px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.theme-switch input:checked + .slider {
+    background-color: var(--accent-color);
+}
+
+.theme-switch input:checked + .slider::before {
+    transform: translateX(24px);
+    background-color: #1e1e1e;
+}
+
+.code-typer {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 1.1rem;
+    color: var(--accent-color);
+    margin-bottom: 25px;
+    min-height: 1.6em;
+}
+
+.cursor {
+    display: inline-block;
+    color: var(--accent-color);
+    animation: blink 0.8s step-end infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+/* Hero content wrapper (needed for particle z-index layering) */
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* 1. Particle background */
+.particles {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    background: var(--accent-color);
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(0); opacity: 0.5; }
+    to { transform: translateY(-400px); opacity: 0; }
+}
+
+/* 2. Animated gradient background */
+.hero {
+    position: relative;
+    background: linear-gradient(-45deg, var(--header-bg), var(--accent-color), #16161f, var(--header-bg));
+    background-size: 400% 400%;
+    animation: gradientShift 12s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 3. Tilt effect on project cards */
+.tilt-card {
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+/* 4. Animated counters */
+.stats {
+    margin-top: 30px;
+    display: flex;
+    gap: 40px;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--accent-color);
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: var(--footer-text);
+}
+
+/* 5. Glitch text effect */
+.glitch {
+    position: relative;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    overflow: hidden;
+    opacity: 0.8;
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 #ff00c1;
+    animation: glitchTop 2.5s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 #00fff9;
+    animation: glitchBottom 2.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitchTop {
+    0%   { clip-path: inset(0 0 90% 0); transform: translate(0); }
+    20%  { clip-path: inset(10% 0 60% 0); transform: translate(-2px); }
+    40%  { clip-path: inset(50% 0 20% 0); transform: translate(2px); }
+    60%  { clip-path: inset(20% 0 70% 0); transform: translate(-1px); }
+    80%  { clip-path: inset(80% 0 5% 0); transform: translate(1px); }
+    100% { clip-path: inset(0 0 90% 0); transform: translate(0); }
+}
+
+@keyframes glitchBottom {
+    0%   { clip-path: inset(80% 0 0 0); transform: translate(0); }
+    20%  { clip-path: inset(40% 0 30% 0); transform: translate(2px); }
+    40%  { clip-path: inset(10% 0 60% 0); transform: translate(-2px); }
+    60%  { clip-path: inset(60% 0 10% 0); transform: translate(1px); }
+    80%  { clip-path: inset(5% 0 80% 0); transform: translate(-1px); }
+    100% { clip-path: inset(80% 0 0 0); transform: translate(0); }
+}
+
+/* 6. Scroll-triggered reveal */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 7. Glowing cursor trail */
+.cursor-dot {
+    position: fixed;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    box-shadow: 0 0 12px 4px var(--accent-color);
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.08s ease-out, opacity 0.2s ease;
+    opacity: 0.7;
+}
+
+@media (max-width: 500px) {
+    .cursor-dot { display: none; }
+}
+
+.glitch {
+    color: var(--accent-color);
+}
+
+#matrix-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.15;
+}
+
+body.dark-mode #matrix-bg {
+    opacity: 0.2;
 }
